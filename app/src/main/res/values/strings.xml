@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">DevLag</string>
+
+    <!-- String for Search Hint  -->
+    <string name="search">Search for a developer</string>
+
+    <!-- String to display when there's no Internet connection  -->
+    <string name="no_internet_connection">Opps! No Internet Connection</string>
+
+    <!-- String to display when there is no developer found  -->
+    <string name="no_developer_found">No Developer matched your search</string>
+
+    <!-- label of the ProfileActivity  -->
+    <string name="profile">Profile</string>
+
+</resources>
