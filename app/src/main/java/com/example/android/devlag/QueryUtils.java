@@ -35,7 +35,7 @@ public class QueryUtils {
     }
 
     /**
-     * Query the USGS dataset and return an {@link Profile} object to represent a single earthquake.
+     * Query the GitHub dataset and return an {@link Profile} object to represent searched profiles.
      */
     public static ArrayList<Profile> fetchGitHubData(String requestUrl) {
         // Create URL object
@@ -44,24 +44,17 @@ public class QueryUtils {
         // Perform HTTP request to the URL and receive a JSON response back
         String jsonResponse = null;
 
-        //Make Thread sleep for 2 seconds
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         try {
             jsonResponse = makeHttpRequest(url);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error closing input stream", e);
         }
 
-        // Create an empty ArrayList that we can start adding earthquakes to
-        ArrayList<Profile> earthquakes = extractProfiles(jsonResponse);
+        // Create an empty ArrayList that we can start adding profiles to
+        ArrayList<Profile> profiles = extractProfiles(jsonResponse);
 
         // Return the {@link Event}
-        return earthquakes;
+        return profiles;
     }
 
     /**
@@ -147,7 +140,7 @@ public class QueryUtils {
             return null;
         }
 
-        // Create an empty ArrayList that we can start adding earthquakes to
+        // Create an empty ArrayList that we can start adding profiles to
         ArrayList<Profile> profiles = new ArrayList<>();
 
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
@@ -155,8 +148,8 @@ public class QueryUtils {
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
 
-            // TODO: Parse the response given by the SAMPLE_JSON_RESPONSE string and
-            // build up a list of Earthquake objects with the corresponding data.
+            // Parse the response given by the SAMPLE_JSON_RESPONSE string and
+            // build up a list of profiles objects with the corresponding data.
             JSONObject root = new JSONObject(githubJSON);
             JSONArray gitHubArray = root.getJSONArray("items");
             if(gitHubArray.length() > 0) {
@@ -180,7 +173,7 @@ public class QueryUtils {
                     Profile profile = new Profile(logInName, avatar_url, html_url);
                     profiles.add(profile);
                 }
-                // Return the list of earthquakes
+                // Return the list of profiles
                 return profiles;
             }
 
@@ -188,10 +181,10 @@ public class QueryUtils {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("QueryUtils", "Problem parsing the GITHUB JSON results", e);
         }
 
-        // Return the list of earthquakes
+        // default return value
         return null;
     }
 }

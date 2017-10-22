@@ -13,4 +13,7 @@
     <!-- label of the ProfileActivity  -->
     <string name="profile">Profile</string>
 
+    <!-- title for the share menu -->
+    <string name="share">Share</string>
+
 </resources>

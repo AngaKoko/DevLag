@@ -9,6 +9,9 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -21,26 +24,25 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Profile>> {
 
-    /** URL for earthquake data from the GITHUB dataset */
-    private static final String GITHUB_REQUEST_URL = "https://api.github.com/search/users";
-
     /**
-     * Constant value for the earthquake loader ID. We can choose any integer.
+     * Constant value for the GitHub loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
      */
     public static final int PROFILE_LOADER_ID = 0;
-
-    //Instance of the ProfileAdapter class
-    private ProfileAdapter mAdapter;
-
-    /** Call the TextView that is displayed when the list is empty */
-    private TextView mEmptyStateTextView;
-
-    /** Call the Loader View */
-    private ProgressBar mProgressBAr;
-
+    /**
+     * URL for Github data from the GITHUB dataset
+     */
+    private static final String GITHUB_REQUEST_URL = "https://api.github.com/search/users";
     //Create a static variable to store the searched string
     private static String userId = "";
+    //Instance of the ProfileAdapter class
+    private ProfileAdapter mAdapter;
+    /** Call the TextView that is displayed when the list is empty */
+    private TextView mEmptyStateTextView;
+    /**
+     * Call the progress bar
+     */
+    private ProgressBar mProgressBAr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,10 +111,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         profileListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // Find the current earthquake that was clicked on
+                // Find the current profile that was clicked on
                 Profile currentProfile = mAdapter.getItem(position);
 
-                // Create a new intent to view the earthquake URI
+                // Create a new intent to view the profile
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
 
                 /**
@@ -165,7 +167,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Profile>> loader) {
-
         //Clear data in the adapter
         mAdapter.clear();
 
